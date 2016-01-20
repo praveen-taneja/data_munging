@@ -1,9 +1,12 @@
+# Author - Praveen Taneja
+# last updated - 01/20/16
+
 import glob
 import wx
 import os
-import sys
+#import sys
 import csv
-import pandas as pd
+#import pandas as pd
 
 
 fn_match = '*.csv'
@@ -12,7 +15,7 @@ fn_match = '*.csv'
 
 
 def choose_dir():
-    app = wx.PySimpleApp()
+    app = wx.App()
     dialog = wx.DirDialog(None, "Choose a directory:",style=wx.DD_DEFAULT_STYLE | wx.DD_NEW_DIR_BUTTON)
     if dialog.ShowModal() == wx.ID_OK:
         folder_path = dialog.GetPath()
@@ -54,7 +57,7 @@ while valid_user_input_float(start_row) == False or start_row == 0:
 start_row = int(start_row)
 
 print ' '
-print 'extracting col #', col_num, 'starting from row #', start_row
+print 'extracting col #', col_num, ', starting from row #', start_row
 
 start_row = start_row - 1
 col_num = col_num -1
@@ -62,6 +65,7 @@ print ' '
 print 'reading .csv files from folder', folder_path
 
 fn_list = glob.glob(folder_path +'/'+ fn_match)
+print ' '
 print 'found files, n =', len(fn_list)
 
 data = []
@@ -77,15 +81,18 @@ for fn in fn_list:
         for row_num, row in enumerate(csvr):
             if row_num >= start_row:
                 #print row
-                row_vals.append(row[col_num])
+                if len(row) -1 >= col_num:
+                    row_vals.append(row[col_num])
+                else: # if not enough cols in row 01/20/16
+                    row_vals.append('')
                 #print row_vals
                 
         data.append(row_vals)
         #print data
 
 results_dir = folder_path + '/results'
-
-print 'extracted in', results_dir
+print ' '
+print 'extracted in "results" subfolder'#, results_dir
 
 if not os.path.exists(results_dir):
     os.makedirs(results_dir)
