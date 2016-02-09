@@ -51,9 +51,9 @@ while valid_user_input_float(col_num) == False or col_num == 0:
     col_num = ask(message = 'Enter column number (eg. 4)')
 col_num = int(col_num)
 
-start_row = ask(message = 'Enter starting row number (eg. 12)')
+start_row = ask(message = 'Enter row number to start at (eg. 12)')
 while valid_user_input_float(start_row) == False or start_row == 0:
-    start_row = ask(message = 'Enter starting row number (eg. 12)')
+    start_row = ask(message = 'Enter row number to start at (eg. 12)')
 start_row = int(start_row)
 
 print ' '
